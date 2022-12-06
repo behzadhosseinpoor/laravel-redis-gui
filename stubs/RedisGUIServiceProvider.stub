@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\Facades\Gate;
+use Laravel\RedisGUI\Providers\RedisGUIApplicationServiceProvider;
+
+class RedisGUIServiceProvider extends RedisGUIApplicationServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * Register the RedisGUI gate.
+     *
+     * This gate determines who can access RedisGUI in non-local environments.
+     *
+     * @return void
+     */
+    protected function gate(): void
+    {
+        Gate::define('viewRedisGUI', function ($user) {
+            return in_array($user->email, [
+                //
+            ]);
+        });
+    }
+}
