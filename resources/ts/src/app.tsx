@@ -63,7 +63,7 @@ const App = () => {
               <div
                 className={classNames(
                   "hidden",
-                  "pl-36 pl-12",
+                  "pl-40 pl-12",
                   "text-gray-500 text-red-500 text-blue-500 text-grape-500",
                   "bg-grape-700 bg-blue-500 bg-green-500 bg-orange-500 bg-pink-500 bg-gray-700 bg-lime-500",
                   "text-sm text-md text-lg text-xl text-2xl text-3xl text-4xl text-5xl text-6xl text-7xl text-8xl text-9xl"

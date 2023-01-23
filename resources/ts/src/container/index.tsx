@@ -51,8 +51,6 @@ const Container = () => {
     ],
   });
 
-  console.log(queries);
-
   return (
     <Layout loading={queries[0].isLoading}>
       <div className="grid lg:grid-cols-2 gap-4 h-full relative">

@@ -27,8 +27,10 @@ const Search = () => {
         type,
       }),
     {
-      onSuccess: ({ data }) => {
+      onSuccess: ({ data }, { query, type }) => {
         handleChange({
+          query,
+          type,
           keys: data.result || [],
         });
       },
@@ -51,7 +53,7 @@ const Search = () => {
       <TextInput
         placeholder="Filter by Key Name or Pattern..."
         classNames={{
-          input: `pl-${queries.type ? "36" : "12"} border-0`,
+          input: `pl-${queries.type ? "40" : "12"} border-0`,
         }}
         variant="filled"
         value={query}
@@ -63,12 +65,14 @@ const Search = () => {
             {queries.type && (
               <div
                 className={classNames(
-                  "absolute top-1 h-7 left-10 rounded flex items-center justify-between px-1 w-24",
+                  "absolute top-1 h-7 left-10 rounded flex items-center justify-between px-1 w-28",
                   KeyTypes.find((item) => item.id === +queries.type)?.color
                 )}
               >
-                <span className="text-xs mr-2 w-full text-center">
-                  {KeyTypes.find((item) => item.id === +queries.type)?.title}
+                <span className="text-xs mr-2 w-full text-center font-medium">
+                  {KeyTypes.find(
+                    (item) => item.id === +queries.type
+                  )?.title.toUpperCase()}
                 </span>
 
                 <MdClose

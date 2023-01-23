@@ -12,7 +12,6 @@ const Types: FC<Props> = ({ handleChangeType }) => {
 
   useEffect(() => {
     if (isShowDropdown) {
-      console.log("fdsafds");
       window.addEventListener("click", handleCloseDropdown);
     }
   }, [isShowDropdown]);
