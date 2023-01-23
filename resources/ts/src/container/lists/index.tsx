@@ -1,14 +1,9 @@
 import { ActionIcon, Button } from "@mantine/core";
-import { FC, useState } from "react";
-import { RiListCheck } from "react-icons/ri";
-import { MdOutlineAccountTree } from "react-icons/md";
+import { FC } from "react";
 import Search from "./search";
-import { TShowTypes } from "./types";
 import ListView from "./list";
-import TreeView from "./tree";
 import { BiPlus, BiRefresh } from "react-icons/bi";
 import { useMutation } from "@tanstack/react-query";
-import { IGetRedisKeysFormData } from "../../utilities/common/apis/redis/types";
 import Common from "../../utilities/common";
 import { useRedisContext } from "../../contexts/redis";
 
@@ -17,8 +12,6 @@ interface Props {
 }
 
 const List: FC<Props> = ({ loading }) => {
-  const [showType, setShowType] = useState<TShowTypes>("list");
-
   const { connection, path, query, type, handleChange } = useRedisContext();
 
   const { mutate } = useMutation(
@@ -45,31 +38,9 @@ const List: FC<Props> = ({ loading }) => {
           <Search />
         </div>
 
-        <div className="bg-dark-700 p-1 rounded inline-flex items-center min-w-max mr-4">
-          <ActionIcon
-            variant={showType === "list" ? "filled" : "subtle"}
-            color="red.7"
-            className="mr-2 transition-all duration-300"
-            size="lg"
-            onClick={() => setShowType("list")}
-          >
-            <RiListCheck />
-          </ActionIcon>
-
-          <ActionIcon
-            variant={showType === "tree" ? "filled" : "subtle"}
-            color="red.7"
-            className="transition-all duration-300"
-            size="lg"
-            onClick={() => setShowType("tree")}
-          >
-            <MdOutlineAccountTree />
-          </ActionIcon>
-
-          <Button leftIcon={<BiPlus />} className="ml-4">
-            Key
-          </Button>
-        </div>
+        <Button leftIcon={<BiPlus />} className="mr-4">
+          Key
+        </Button>
 
         <ActionIcon
           variant="subtle"
@@ -84,9 +55,7 @@ const List: FC<Props> = ({ loading }) => {
 
       <div className="border-0 border-t border-solid border-dark-400 w-full pt-1 h-full overflow-hidden">
         <div className="scroll-gray-700 overflow-y-auto overflow-x-hidden h-full">
-          {showType === "list" && <ListView loading={loading} />}
-
-          {showType === "tree" && <TreeView loading={loading} />}
+          <ListView loading={loading} />
         </div>
       </div>
     </div>

@@ -23,6 +23,7 @@ const Container = () => {
           }),
         enabled: !!connection,
         retry: false,
+        refetchInterval: 10000,
         onSuccess: ({ data }: any) => {
           handleChange({
             details: data?.result || null,

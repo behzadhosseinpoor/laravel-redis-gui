@@ -5,12 +5,14 @@ import { useMutation } from "@tanstack/react-query";
 import Common from "../../../utilities/common";
 import { IGetRedisKeysFormData } from "../../../utilities/common/apis/redis/types";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { MdClose } from "react-icons/md";
 import Types from "./types";
 
-const Search = () => {
+interface Props {}
+
+const Search: FC<Props> = () => {
   const [query, setQuery] = useState("");
   const [queries, setQueries] = useState({
     type: "",
@@ -19,7 +21,10 @@ const Search = () => {
   const { connection, path, handleChange } = useRedisContext();
 
   const { mutate } = useMutation(
-    ({ query, type }: Omit<IGetRedisKeysFormData, "connection" | "path">) =>
+    ({
+      query,
+      type,
+    }: Omit<IGetRedisKeysFormData, "connection" | "path" | "view">) =>
       Common.api.redis.GetKeys({
         connection,
         path,
