@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
+use RuntimeException;
 
 class RedisGUI
 {
@@ -52,7 +54,25 @@ class RedisGUI
         return [
             'path' => Config::get('redis-gui.path'),
             'connections' => Config::get('redis-gui.connections'),
-            'version' => '0.0.1',
+            'assetsAreCurrent' => self::assetsAreCurrent(),
         ];
+    }
+
+    /**
+     * Determine if RedisGUI's published assets are up-to-date.
+     *
+     * @return bool
+     *
+     * @throws RuntimeException
+     */
+    public static function assetsAreCurrent(): bool
+    {
+        $publishedPath = public_path('vendor/redis-gui/mix-manifest.json');
+
+        if (!File::exists($publishedPath)) {
+            throw new RuntimeException('RedisGUI assets are not published. Please run: php artisan redis-gui:publish');
+        }
+
+        return File::get($publishedPath) === File::get(__DIR__ . '/../public/mix-manifest.json');
     }
 }

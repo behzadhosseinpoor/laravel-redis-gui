@@ -1,6 +1,7 @@
 {
   "name": "behzadhosseinpoor/laravel-redis-gui",
   "description": "Laravel Redis GUI",
+  "version": "0.0.1",
   "keywords": [
     "laravel",
     "redis"
