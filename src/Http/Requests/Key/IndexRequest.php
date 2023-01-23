@@ -16,6 +16,7 @@ class IndexRequest extends FormRequest
         return [
             'type' => 'bail|nullable|numeric|min:0|max:6',
             'query' => 'bail|nullable|string|max:150',
+            'view' => 'bail|nullable|string',
         ];
     }
 }
