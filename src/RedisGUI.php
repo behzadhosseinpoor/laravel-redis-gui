@@ -52,6 +52,7 @@ class RedisGUI
         return [
             'path' => Config::get('redis-gui.path'),
             'connections' => Config::get('redis-gui.connections'),
+            'version' => '0.0.1',
         ];
     }
 }

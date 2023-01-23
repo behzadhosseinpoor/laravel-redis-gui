@@ -5,7 +5,9 @@ return [
     'path' => env('REDIS_GUI_PATH', 'redis-gui'),
     'enabled' => env('REDIS_GUI_ENABLED', true),
     'connections' => [
-        'cache'
+        'cache',
+        'default',
+        'horizon'
     ],
     'middleware' => [
         'web'
