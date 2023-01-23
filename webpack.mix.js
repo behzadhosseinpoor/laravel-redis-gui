@@ -1,12 +1,13 @@
 const mix = require("laravel-mix");
 const tailwindcss = require("tailwindcss");
 
-mix.setPublicPath("./public")
-    .js("resources/js/app.js", "")
-    .react()
-    .sass("resources/sass/app.scss", "")
-    .options({
-        postCss: [tailwindcss("./tailwind.config.js")],
-    })
-    .sourceMaps()
-    .version();
+mix
+  .setPublicPath("./../../koja-api/public/vendor/redis-gui")
+  .ts("resources/ts/app.ts", "")
+  .react()
+  .sass("resources/sass/app.scss", "")
+  .options({
+    postCss: [tailwindcss("./tailwind.config.js")],
+  })
+  .sourceMaps()
+  .version();

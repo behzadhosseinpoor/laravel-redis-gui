@@ -1,0 +1,4 @@
+require("./src/index");
+
+export {};
+
