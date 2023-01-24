@@ -46,8 +46,7 @@ const App = () => {
           <ModalsProvider modalProps={{}}>
             <section>
               <ToastContainer
-                rtl={true}
-                position="bottom-right"
+                position="bottom-left"
                 autoClose={4000}
                 theme="colored"
                 hideProgressBar
