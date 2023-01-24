@@ -27,10 +27,10 @@ export const RedisProvider: FC<Props> = ({ children }) => {
 
     const redis = window.RedisGUI;
 
-    if (redis.assetsAreCurrent) {
-      toast.warn(({ closeToast }) => (
+    if (!redis.assetsAreCurrent) {
+      toast.error(() => (
         <div>
-          <div className="mb-1">
+          <div className="mb-1.5">
             The published RedisGUI assets are not up-to-date with the installed
             version. To update, run:
           </div>

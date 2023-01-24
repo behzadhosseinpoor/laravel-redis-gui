@@ -1,5 +1,9 @@
 import Request from "../../../../services/request";
-import { IGetRedisFormData, IGetRedisKeysFormData } from "./types";
+import {
+  IGetRedisFormData,
+  IGetRedisKeyFormData,
+  IGetRedisKeysFormData,
+} from "./types";
 
 const Get = async ({ path, connection }: IGetRedisFormData) =>
   await new Request().get<IReturnValue<IRedisDetails>>({
@@ -29,10 +33,21 @@ const GetKeys = async ({
     }
   );
 
+const GetKey = async ({ id, connection, path }: IGetRedisKeyFormData) =>
+  await new Request().get<IReturnValue<IKey & { data: any }>>({
+    base: "KEY",
+    params: {
+      id,
+      connection,
+      path,
+    },
+  });
+
 // Main Object
 const RedisApis = {
   Get,
   GetKeys,
+  GetKey,
 };
 
 export default RedisApis;

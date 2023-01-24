@@ -64,7 +64,7 @@ class Request {
         return null;
       }
 
-      ApiInstance.get(callUrl, config)
+      ApiInstance.get(encodeURI(callUrl), config)
         .then((data) => {
           resolve(data);
         })

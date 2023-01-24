@@ -38,9 +38,17 @@ const List: FC<Props> = ({ loading }) => {
           <Search />
         </div>
 
-        <Button leftIcon={<BiPlus />} className="mr-4">
+        {/* <Button
+          leftIcon={<BiPlus />}
+          className="mr-4"
+          onClick={() =>
+            handleChange({
+              actionType: "addKey",
+            })
+          }
+        >
           Key
-        </Button>
+        </Button> */}
 
         <ActionIcon
           variant="subtle"

@@ -18,7 +18,13 @@ const Search: FC<Props> = () => {
     type: "",
   });
 
-  const { connection, path, handleChange } = useRedisContext();
+  const {
+    connection,
+    path,
+    query: redisQuery,
+    type,
+    handleChange,
+  } = useRedisContext();
 
   const { mutate } = useMutation(
     ({
@@ -52,6 +58,14 @@ const Search: FC<Props> = () => {
       query,
     });
   }, [queries]);
+
+  useEffect(() => {
+    setQuery(redisQuery);
+
+    setQueries({
+      type,
+    });
+  }, [redisQuery, type]);
 
   return (
     <div>

@@ -7,7 +7,8 @@ import List from "./lists";
 import Action from "./action";
 
 const Container = () => {
-  const { actionType, path, connection, handleChange } = useRedisContext();
+  const { actionType, path, connection, query, type, handleChange } =
+    useRedisContext();
 
   const queries = useQueries({
     queries: [
@@ -31,7 +32,7 @@ const Container = () => {
         },
       },
       {
-        queryKey: ["keys", { connection }],
+        queryKey: ["keys", { connection, query, type }],
         queryFn: ({ queryKey }: any) =>
           Common.api.redis.GetKeys({
             path,
@@ -39,6 +40,8 @@ const Container = () => {
               typeof queryKey[1] !== "string"
                 ? queryKey[1].connection
                 : connection,
+            type: typeof queryKey[1] !== "string" ? queryKey[1].type : type,
+            query: typeof queryKey[1] !== "string" ? queryKey[1].query : query,
           }),
         enabled: !!connection,
         retry: false,

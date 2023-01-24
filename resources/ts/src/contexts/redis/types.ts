@@ -7,9 +7,7 @@ export interface RedisContext {
   details: IRedisDetails | null;
   keys: Array<IKey>;
   actionType: "showKey" | "addKey" | null;
-  actionDetails: {
-    key: string;
-  } | null;
+  actionDetails: IKey | null;
   handleChange: (data: Partial<Omit<RedisContext, "handleChange">>) => void;
 }
 

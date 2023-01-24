@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ListView: FC<Props> = ({ loading }) => {
-  const { keys, handleChange } = useRedisContext();
+  const { keys, actionDetails, handleChange } = useRedisContext();
 
   return (
     <>
@@ -24,13 +24,19 @@ const ListView: FC<Props> = ({ loading }) => {
               key={i}
               className={classNames(
                 "flex items-center p-3 hover:bg-red-900 hover:bg-opacity-30 transition-all duration-300 cursor-pointer",
-                i % 2 === 0 ? "bg-dark-500" : ""
+                actionDetails?.key === key
+                  ? "bg-red-900 bg-opacity-30"
+                  : i % 2 === 0
+                  ? "bg-dark-500"
+                  : ""
               )}
               onClick={() => {
                 handleChange({
                   actionType: "showKey",
                   actionDetails: {
                     key,
+                    ttl,
+                    type,
                   },
                 });
               }}

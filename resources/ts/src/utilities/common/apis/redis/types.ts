@@ -10,3 +10,9 @@ export interface IGetRedisKeysFormData {
   type?: string;
 }
 
+export interface IGetRedisKeyFormData {
+  id: string;
+  connection: string;
+  path: string;
+}
+
