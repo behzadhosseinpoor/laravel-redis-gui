@@ -9,9 +9,11 @@ class ConnectionManager
 {
     private static $connection;
 
-    public static function set(string $name): void
+    public static function set(string $name): Connection
     {
         self::$connection = Redis::connection($name);
+
+        return self::$connection;
     }
 
     public static function get(): Connection

@@ -15,7 +15,8 @@
   "require": {
     "php": "^7.3|^8.0",
     "laravel/framework": "^8.29|^9.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-redis": "*"
   },
   "autoload": {
     "psr-4": {

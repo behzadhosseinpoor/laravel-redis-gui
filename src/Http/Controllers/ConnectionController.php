@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace Laravel\RedisGUI\Http\Controllers;
 
@@ -10,6 +11,7 @@ class ConnectionController extends Controller
     public function overview(): JsonResponse
     {
         $connection = ConnectionManager::get();
+        $prefix = $connection->client()->_prefix('');
         $keys = 0;
         $info = $connection->command('info');
         $dbs = array_filter($info, function (string $key) {
@@ -34,6 +36,7 @@ class ConnectionController extends Controller
             'used_memory' => $info['used_memory'],
             'redis_version' => $info['redis_version'],
             'keys' => $keys,
+            'prefix' => strlen($prefix) === 0 ? null : $prefix,
         ]);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace Laravel\RedisGUI\Http\Middleware;
 
