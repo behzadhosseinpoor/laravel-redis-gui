@@ -12,4 +12,5 @@ return [
     'err503' => 'Service Unavailable',
     'invalid_connection' => 'Invalid Connection',
     'not_found_connection' => 'Not Found Connection',
+    'not_found_key' => 'Key with this name does not exist.',
 ];
