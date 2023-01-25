@@ -94,4 +94,9 @@ class KeyController extends Controller
             'data' => $data,
         ]);
     }
+
+    public function delete(Request $request, string $connection, string $key): JsonResponse
+    {
+        return $this->json(200);
+    }
 }
