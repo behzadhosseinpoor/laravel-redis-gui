@@ -13,4 +13,5 @@ return [
     'invalid_connection' => 'Invalid Connection',
     'not_found_connection' => 'Not Found Connection',
     'not_found_key' => 'Key with this name does not exist.',
+    'success_delete' => ':key has been deleted.',
 ];

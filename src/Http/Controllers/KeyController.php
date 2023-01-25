@@ -97,6 +97,11 @@ class KeyController extends Controller
 
     public function delete(Request $request, string $connection, string $key): JsonResponse
     {
-        return $this->json(200);
+        $connection = ConnectionManager::get();
+        $prefix = $connection->client()->_prefix('');
+        $k = $this->removePrefix($key, $prefix);
+        $connection->command('del', [$k]);
+
+        return $this->json(200, trans('redis-gui::errors.success_delete', ['key' => $key], 'en'));
     }
 }
