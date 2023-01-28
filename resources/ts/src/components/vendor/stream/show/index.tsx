@@ -5,7 +5,7 @@ interface Props {
 }
 
 const StreamShow: FC<Props> = ({ data }) => {
-  return <div>{data.data}</div>;
+  return <div className="break-all">{data.data}</div>;
 };
 
 export default StreamShow;

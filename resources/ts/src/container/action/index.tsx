@@ -9,7 +9,7 @@ const Action = () => {
   const { actionType, actionDetails, path, connection, handleChange } =
     useRedisContext();
 
-  const { data, isLoading, refetch } = useQuery(
+  const { data, isLoading, status, refetch } = useQuery(
     ["getKeyDetails"],
     () =>
       Common.api.redis.GetKey({
@@ -35,7 +35,7 @@ const Action = () => {
   return (
     <>
       {actionType === "addKey" && (
-        <div className="text-end p-2">
+        <div className="text-end">
           <MdClose
             className="text-xl cursor-pointer hover:text-red-400 transition-all duration-300"
             onClick={() =>
@@ -59,6 +59,7 @@ const Action = () => {
               type: 0,
             }
           }
+          status={status}
           refetch={refetch}
         />
       )}

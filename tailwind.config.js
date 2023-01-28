@@ -195,9 +195,11 @@ module.exports = {
       },
       minWidth: {
         28: "7rem",
+        10: "2.5rem",
+        32: "8rem",
       },
       width: {
-        "action-text": "calc(100% - 11rem)",
+        "action-text": "calc(100% - 12rem)",
       },
     },
   },

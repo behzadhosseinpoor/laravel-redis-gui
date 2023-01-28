@@ -9,19 +9,19 @@ const HashShow: FC<Props> = ({ data }) => {
   const rows = Object.entries(data.data as Record<string, string>).map(
     ([key, value], i) => (
       <tr key={i}>
-        <td>{key}</td>
-        <td>{value}</td>
+        <td className="break-all">{key}</td>
+        <td className="break-all">{value}</td>
       </tr>
     )
   );
 
   return (
     <div>
-      <Table striped highlightOnHover withColumnBorders>
+      <Table striped withBorder withColumnBorders>
         <thead>
           <tr>
-            <th>Field</th>
-            <th>Value</th>
+            <th className="min-w-32">Field</th>
+            <th className="min-w-32">Value</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

@@ -14,9 +14,6 @@ interface Props {}
 
 const Search: FC<Props> = () => {
   const [query, setQuery] = useState("");
-  const [queries, setQueries] = useState({
-    type: "",
-  });
 
   const {
     connection,
@@ -49,30 +46,26 @@ const Search: FC<Props> = () => {
   );
 
   useEffect(() => {
-    if (!queries.type) {
+    if (!type) {
       return undefined;
     }
 
     mutate({
-      type: queries.type,
+      type,
       query,
     });
-  }, [queries]);
+  }, [type]);
 
   useEffect(() => {
     setQuery(redisQuery);
-
-    setQueries({
-      type,
-    });
-  }, [redisQuery, type]);
+  }, [redisQuery]);
 
   return (
     <div>
       <TextInput
         placeholder="Filter by Key Name or Pattern..."
         classNames={{
-          input: `pl-${queries.type ? "40" : "12"} border-0`,
+          input: `pl-${type ? "40" : "12"} border-0`,
         }}
         variant="filled"
         value={query}
@@ -81,29 +74,25 @@ const Search: FC<Props> = () => {
           <div className="relative w-full">
             {children}
 
-            {queries.type && (
+            {type && (
               <div
                 className={classNames(
                   "absolute top-1 h-7 left-10 rounded flex items-center justify-between px-1 w-28",
-                  KeyTypes.find((item) => item.id === +queries.type)?.color
+                  KeyTypes.find((item) => item.id === +type)?.color
                 )}
               >
                 <span className="text-xs mr-2 w-full text-center font-medium">
                   {KeyTypes.find(
-                    (item) => item.id === +queries.type
+                    (item) => item.id === +type
                   )?.title.toUpperCase()}
                 </span>
 
                 <MdClose
                   className="text-white hover:text-gray-300 cursor-pointer min-w-max"
                   onClick={() => {
-                    setQueries({
-                      type: "",
-                    });
-
                     mutate({
-                      query: "",
                       type: "",
+                      query,
                     });
                   }}
                 />
@@ -117,7 +106,7 @@ const Search: FC<Props> = () => {
               onClick={() =>
                 mutate({
                   query,
-                  type: queries.type,
+                  type: type,
                 })
               }
             >
@@ -126,8 +115,7 @@ const Search: FC<Props> = () => {
 
             <Types
               handleChangeType={(type: string) =>
-                setQueries({
-                  ...queries,
+                handleChange({
                   type,
                 })
               }

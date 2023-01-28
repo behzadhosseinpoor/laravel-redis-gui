@@ -3,6 +3,7 @@ import { useRedisContext } from "../../../contexts/redis";
 import { Input } from "@mantine/core";
 import { BiCheck, BiEdit } from "react-icons/bi";
 import { MdOutlineCancel } from "react-icons/md";
+import { ConvertSeconds } from "../../../utilities/helper";
 
 const Ttl = () => {
   const [value, setValue] = useState("");
@@ -53,7 +54,11 @@ const Ttl = () => {
         <div className="inline-flex items-center text-xs">
           <span className="text-gray-600 mr-2">TTL:</span>
 
-          <span className="text-gray-400 mr-1">{actionDetails?.ttl}</span>
+          <span className="text-gray-400 mr-1">
+            {actionDetails?.ttl === -1
+              ? "No limit"
+              : ConvertSeconds(actionDetails?.ttl || 0)}
+          </span>
 
           {/* <BiEdit
             className="transition-all duration-300 text-lg cursor-pointer"

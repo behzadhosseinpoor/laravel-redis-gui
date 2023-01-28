@@ -10,6 +10,7 @@ export const DefaultValue: RedisContext = {
   keys: [],
   actionType: null,
   actionDetails: null,
+  refreshKeys: false,
   handleChange: () => {},
 };
 

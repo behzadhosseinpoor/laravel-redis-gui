@@ -16,3 +16,9 @@ export interface IGetRedisKeyFormData {
   path: string;
 }
 
+export interface IRemoveRedisFormData {
+  path: string;
+  connection: string;
+  id: string;
+}
+

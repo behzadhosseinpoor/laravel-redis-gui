@@ -7,8 +7,15 @@ import List from "./lists";
 import Action from "./action";
 
 const Container = () => {
-  const { actionType, path, connection, query, type, handleChange } =
-    useRedisContext();
+  const {
+    refreshKeys,
+    actionType,
+    path,
+    connection,
+    query,
+    type,
+    handleChange,
+  } = useRedisContext();
 
   const queries = useQueries({
     queries: [
@@ -32,7 +39,7 @@ const Container = () => {
         },
       },
       {
-        queryKey: ["keys", { connection, query, type }],
+        queryKey: ["keys", { connection, query, type, refreshKeys }],
         queryFn: ({ queryKey }: any) =>
           Common.api.redis.GetKeys({
             path,
@@ -49,6 +56,7 @@ const Container = () => {
         onSuccess: ({ data }: any) => {
           handleChange({
             keys: data?.result || [],
+            refreshKeys: false,
           });
         },
       },
@@ -68,7 +76,7 @@ const Container = () => {
         </div>
 
         {actionType && (
-          <div className="bg-dark-600 rounded p-1 overflow-hidden absolute lg:static w-full h-full">
+          <div className="bg-dark-600 rounded p-2 overflow-hidden absolute lg:static w-full h-full">
             <Action />
           </div>
         )}

@@ -8,6 +8,7 @@ export interface RedisContext {
   keys: Array<IKey>;
   actionType: "showKey" | "addKey" | null;
   actionDetails: IKey | null;
+  refreshKeys: boolean;
   handleChange: (data: Partial<Omit<RedisContext, "handleChange">>) => void;
 }
 

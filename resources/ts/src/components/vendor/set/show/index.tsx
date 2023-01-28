@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { Table } from "@mantine/core";
 import { FC } from "react";
 
 interface Props {
@@ -6,21 +6,23 @@ interface Props {
 }
 
 const SetShow: FC<Props> = ({ data }) => {
+  const rows = data.data.map((item: string, i: number) => (
+    <tr key={i}>
+      <td className="break-all">{item}</td>
+    </tr>
+  ));
+
   return (
     <div>
-      {data &&
-        data.data.length &&
-        data.data.map((item: string, i: number) => (
-          <div
-            key={i}
-            className={classNames(
-              "px-2 py-3",
-              i / 2 === 0 ? "bg-dark-500" : ""
-            )}
-          >
-            {item}
-          </div>
-        ))}
+      <Table striped withBorder withColumnBorders>
+        <thead>
+          <tr>
+            <th className="min-w-32">Member</th>
+          </tr>
+        </thead>
+
+        <tbody>{rows}</tbody>
+      </Table>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const Context = createContext<RedisContext>(DefaultValue);
 
 export const RedisProvider: FC<Props> = ({ children }) => {
   const [data, setData] = useState(DefaultValue);
-
+  const [isShowToast, setIsShowToast] = useState(false);
   useEffect(() => {
     if (!window.RedisGUI) {
       return undefined;
@@ -27,7 +27,22 @@ export const RedisProvider: FC<Props> = ({ children }) => {
 
     const redis = window.RedisGUI;
 
-    if (!redis.assetsAreCurrent) {
+    setData({
+      ...data,
+      connection: redis.connections[0] || "",
+      path: redis.path as RedisContext["path"],
+      connections: redis.connections as RedisContext["connections"],
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!data.path) {
+      return undefined;
+    }
+
+    const redis = window.RedisGUI;
+
+    if (!redis.assetsAreCurrent && !isShowToast) {
       toast.error(() => (
         <div>
           <div className="mb-1.5">
@@ -40,15 +55,10 @@ export const RedisProvider: FC<Props> = ({ children }) => {
           </code>
         </div>
       ));
-    }
 
-    setData({
-      ...data,
-      connection: redis.connections[0] || "",
-      path: redis.path as RedisContext["path"],
-      connections: redis.connections as RedisContext["connections"],
-    });
-  }, []);
+      setIsShowToast(true);
+    }
+  }, [data]);
 
   const handleChange: RedisContext["handleChange"] = (newData) => {
     setData((oldState) => ({

@@ -10,7 +10,7 @@ export const ApiRoutes: TApiRoutes = {
     url: "/#path/api/#connection/keys",
   },
   KEY: {
-    methods: ["GET"],
+    methods: ["GET", "DELETE"],
     url: "/#path/api/#connection/keys/#id",
   },
 };

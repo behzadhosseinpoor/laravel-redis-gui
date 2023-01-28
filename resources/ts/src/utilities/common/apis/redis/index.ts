@@ -3,6 +3,7 @@ import {
   IGetRedisFormData,
   IGetRedisKeyFormData,
   IGetRedisKeysFormData,
+  IRemoveRedisFormData,
 } from "./types";
 
 const Get = async ({ path, connection }: IGetRedisFormData) =>
@@ -43,11 +44,22 @@ const GetKey = async ({ id, connection, path }: IGetRedisKeyFormData) =>
     },
   });
 
+const Remove = async ({ id, path, connection }: IRemoveRedisFormData) =>
+  await new Request().delete<IReturnValue<IRedisDetails>>({
+    base: "KEY",
+    params: {
+      path,
+      connection,
+      id,
+    },
+  });
+
 // Main Object
 const RedisApis = {
   Get,
   GetKeys,
   GetKey,
+  Remove,
 };
 
 export default RedisApis;

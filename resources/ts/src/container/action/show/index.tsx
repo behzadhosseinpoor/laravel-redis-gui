@@ -9,21 +9,44 @@ import Serializers from "../../../components/inc/serializers";
 import { BiRefresh, BiTrash } from "react-icons/bi";
 import Ttl from "./ttl";
 import SiteLoading from "../../../components/loadings/siteLoading";
+import { useMutation } from "@tanstack/react-query";
+import Common from "../../../utilities/common";
 
 interface Props {
   loading: boolean;
   data: IKey & { data: any };
+  status: "error" | "success" | "loading";
   refetch: Function;
 }
 
-const Show: FC<Props> = ({ loading, data, refetch }) => {
-  const { actionDetails, handleChange } = useRedisContext();
+const Show: FC<Props> = ({ loading, data, status, refetch }) => {
+  const { connection, path, actionDetails, handleChange } = useRedisContext();
+
+  const { mutate, isLoading } = useMutation(
+    () =>
+      Common.api.redis.Remove({
+        connection,
+        id: actionDetails?.key || "",
+        path,
+      }),
+    {
+      onSuccess: () => {
+        handleChange({
+          actionDetails: null,
+          actionType: null,
+          refreshKeys: true,
+        });
+      },
+    }
+  );
 
   const handleRefreshData = () => {
     refetch();
   };
 
-  const handleRemoveItem = () => {};
+  const handleRemoveItem = () => {
+    mutate();
+  };
 
   const Component = KeyTypes.find((item) => item.id === data.type)?.components
     .show;
@@ -33,9 +56,9 @@ const Show: FC<Props> = ({ loading, data, refetch }) => {
       {loading && <SiteLoading />}
 
       {!loading && (
-        <>
-          <div className="border-0 border-b border-solid border-gray-600 p-2 mb-4">
-            <div className="flex items-center mb-4">
+        <div className="flex flex-col items-center overflow-hidden h-full">
+          <div className="border-0 border-b border-solid border-dark-400 mb-1 w-full">
+            <div className="flex items-center">
               <div
                 className={classNames(
                   "rounded h-9 flex items-center justify-between px-2 w-28 mr-4 min-w-28",
@@ -52,9 +75,10 @@ const Show: FC<Props> = ({ loading, data, refetch }) => {
 
               <Key />
 
-              <div className="w-10 ml-auto">
+              <div className="min-w-10 ml-auto text-end">
                 <ActionIcon
                   size="lg"
+                  className="ml-auto"
                   color="red"
                   onClick={() =>
                     handleChange({
@@ -77,26 +101,38 @@ const Show: FC<Props> = ({ loading, data, refetch }) => {
             <Serializers />
           </div> */}
 
-              <div className="">
-                <ActionIcon size="lg" color="blue" onClick={handleRefreshData}>
+              <div className="min-w-10 ml-auto text-end">
+                <ActionIcon
+                  size="lg"
+                  color="blue"
+                  className="ml-auto"
+                  onClick={handleRefreshData}
+                  disabled={isLoading}
+                >
                   <BiRefresh className="transition-all duration-300 text-lg" />
                 </ActionIcon>
               </div>
 
-              {/* <div>
-            <ActionIcon size="lg" color="red" onClick={handleRemoveItem}>
-              <BiTrash className="transition-all duration-300" />
-            </ActionIcon>
-          </div> */}
+              <div>
+                <ActionIcon
+                  size="lg"
+                  color="red"
+                  onClick={handleRemoveItem}
+                  loading={isLoading}
+                  disabled={isLoading}
+                >
+                  <BiTrash className="transition-all duration-300" />
+                </ActionIcon>
+              </div>
             </div>
           </div>
 
-          {!!Component && (
-            <div className="p-2">
+          {!!Component && status === "success" && (
+            <div className="h-full w-full overflow-auto scroll-gray-700">
               <Component data={data} />
             </div>
           )}
-        </>
+        </div>
       )}
     </>
   );
